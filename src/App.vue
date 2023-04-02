@@ -1,16 +1,33 @@
 <template>
-  <header class="header">
-    <img src="../public/logo.svg" alt="logo" class="header-logo">
-    <h2>My favorite movies</h2>
-  </header>
-  <div class="movies">
-    
-  </div>
+  <main>
+    <header class="header">
+      <img src="../public/logo.svg" alt="logo" class="header-logo">
+      <h2>My favorite movies</h2>
+    </header>
+    <div class="tabs">
+      <button :class="['btn', { btn_green: movieStore.activeTab === 1 }]">
+        Favorite
+      </button>
+      <button :class="['btn', { btn_green: movieStore.activeTab === 2 }]">
+        Search
+      </button>
+    </div>
+    <div class="movies" v-if="movieStore.activeTab === 1">
+      <h3>All movies</h3>
+      <Movie v-for="movie of movieStore.movies" :key="movie.id" :movie="movie" />
+    </div>
+    <div class="search" v-else>Search</div>
+  </main>
 </template>
 
-<script setup></script>
+<script setup>
+import Movie from './components/Movie.vue';
+import { useMovieStore } from './stores/MovieStore';
 
-<style scoped>
+const movieStore = useMovieStore()
+</script>
+
+<style>
 .header {
   display: flex;
   justify-content: center;

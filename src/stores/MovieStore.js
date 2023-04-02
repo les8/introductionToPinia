@@ -19,7 +19,7 @@ export const useMovieStore = defineStore('movieStore', {
           "In his second year of fighting crime, Batman uncovers corruption in Gotham City that connects to his own family while facing a serial killer known as the Riddler.",
         poster_path: "/b0PlSFdDwbyK0cf5RxwDpaOJQvQ.jpg",
         release_date: "2022-03-01",
-        isWatched: true,
+        isWatched: false,
       },
     ],
     activeTab: 1,
@@ -31,5 +31,18 @@ export const useMovieStore = defineStore('movieStore', {
     totalMoviesCount() { // Это излишне, т.к. можно взять из стора
       return this.movies.length;
     },
-  }
+  },
+  actions: {
+    setActiveTab(id) {
+      this.activeTab = id;
+    },
+    toggleWached(id) {
+      const idx = this.movies.findIndex((item) => item.id === id);
+
+      this.movies[idx].isWatched = !this.movies[idx].isWatched;
+    },
+    deleteMovie(id) {
+      this.movies = this.movies.filter((item) => item.id !== id)
+    },
+  },
 })

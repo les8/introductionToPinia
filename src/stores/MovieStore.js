@@ -23,5 +23,13 @@ export const useMovieStore = defineStore('movieStore', {
       },
     ],
     activeTab: 1,
-  })
+  }),
+  getters: {
+    whachedMovies() {
+      return this.movies.filter((item) => item.isWatched);
+    },
+    totalMoviesCount() { // Это излишне, т.к. можно взять из стора
+      return this.movies.length;
+    },
+  }
 })
